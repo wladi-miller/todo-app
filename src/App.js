@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import { useState } from "react";
+import { BtnAdd } from "./components/Button";
+import Note from "./components/ToDo";
+import "./App.css";
+
+function Input() {
+  return <input className="valueInput" />;
+}
 
 function App() {
+  const [todoValue, setTodoValue] = useState("");
+
+  const todo = [
+    {
+      content: "",
+      done: false,
+      id: 0,
+    },
+  ];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="wrapper">
+        <div className="container">
+          <Input />
+          <BtnAdd onClick={() => setTodoValue("")} />
+        </div>
+        <div className="todoList">
+          <div className="todoItem">
+            <Note />
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

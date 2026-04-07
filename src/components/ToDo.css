@@ -1,0 +1,17 @@
+.body {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+.todoList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
+.todoItem {
+  background-color: #b3b3eb;
+}
