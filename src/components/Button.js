@@ -1,11 +1,19 @@
 import "./Button.css";
 
-function BtnAdd() {
-  return <button className="btnAdd">Add</button>;
+function BtnAdd({ onClick }) {
+  return (
+    <button onClick={onClick} className="btnAdd">
+      Add
+    </button>
+  );
 }
 
-function BtnDelete() {
-  return <button className="btnDelete">Löschen</button>;
+function BtnDelete({ onClick }) {
+  return (
+    <button onClick={onClick} className="btnDelete">
+      Löschen
+    </button>
+  );
 }
 
 export { BtnAdd, BtnDelete };

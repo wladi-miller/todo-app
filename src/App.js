@@ -1,37 +1,52 @@
 import logo from "./logo.svg";
 import { useState } from "react";
-import { BtnAdd } from "./components/Button";
-import Note from "./components/ToDo";
+import { BtnAdd, BtnDelete } from "./components/Button";
 import "./App.css";
 
-function Input() {
-  return <input className="valueInput" />;
+function Input({
+  inputValue,
+  handleInputChange,
+  handleCheckboxChange,
+  onAdd,
+  onDelete,
+}) {
+  return (
+    <div className="wrapper">
+      <div className="container">
+        <input onChange={handleInputChange} className="valueInput" />
+        <BtnAdd onClick={onAdd} />
+      </div>
+      <div className="todoList">
+        <div className="todoItem">
+          <input onChange={handleCheckboxChange} type="checkbox" />
+          <p>{inputValue}</p>
+          <BtnDelete onClick={onDelete} />
+        </div>
+      </div>
+    </div>
+  );
 }
 
 function App() {
-  const [todoValue, setTodoValue] = useState("");
+  const [inputValue, setInputValue] = useState("");
 
-  const todo = [
-    {
-      content: "",
-      done: false,
-      id: 0,
-    },
-  ];
+  function handleInputChange(changeEvent) {
+    setInputValue(changeEvent.target.value);
+  }
+
+  function handleCheckboxChange(changeEvent) {
+    setInputValue(changeEvent.target.checked);
+  }
 
   return (
     <div className="App">
-      <div className="wrapper">
-        <div className="container">
-          <Input />
-          <BtnAdd onClick={() => setTodoValue("")} />
-        </div>
-        <div className="todoList">
-          <div className="todoItem">
-            <Note />
-          </div>
-        </div>
-      </div>
+      <Input
+        inputValue={inputValue}
+        handleInputChange={handleInputChange}
+        handleCheckboxChange={handleCheckboxChange}
+        onAdd={() => setInputValue(inputValue)}
+        onDelete={() => setInputValue("")}
+      />
     </div>
   );
 }
