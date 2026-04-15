@@ -1,22 +1,14 @@
-import logo from "./logo.svg";
 import { useState } from "react";
 import { BtnAdd, BtnDelete } from "./components/Button";
+import { useFormInput } from "./components/useFormInput";
 import "./App.css";
 
-function Input({
-  inputValue,
-  handleInputChange,
-  onAdd,
-  onDelete,
-  notes,
-  onToggle,
-}) {
+function Input({ input, onAdd, onDelete, notes, onToggle }) {
   return (
     <div className="wrapper">
       <div className="container">
         <input
-          value={inputValue}
-          onChange={handleInputChange}
+          {...input}
           className="valueInput"
           placeholder="Aufgabe hinzufügen..."
         />
@@ -54,15 +46,12 @@ function Input({
 }
 
 function App() {
-  const [inputValue, setInputValue] = useState("");
+  const input = useFormInput("");
+
   const [notes, setNotes] = useState([]);
 
-  function handleInputChange(changeEvent) {
-    setInputValue(changeEvent.target.value);
-  }
-
   function handleAddNote() {
-    const newNote = inputValue.trim();
+    const newNote = input.value.trim();
     if (!newNote) {
       alert("Bitte geben Sie eine Aufgabe ein.");
       return;
@@ -75,12 +64,12 @@ function App() {
         done: false,
       },
     ]);
-    setInputValue("");
+    input.reset("");
   }
 
   function handleDeleteTodo(id) {
     setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
-    setInputValue("");
+    input.reset("");
   }
 
   function handleToggleNote(id) {
@@ -94,8 +83,7 @@ function App() {
   return (
     <div className="App">
       <Input
-        inputValue={inputValue}
-        handleInputChange={handleInputChange}
+        input={input}
         onAdd={handleAddNote}
         onDelete={handleDeleteTodo}
         notes={notes}

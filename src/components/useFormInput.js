@@ -1,4 +1,3 @@
-import { BtnDelete } from "./Button";
 import "./useFormInput.css";
 import { useState } from "react";
 
@@ -9,10 +8,14 @@ export function useFormInput(initialValue) {
     setValue(e.target.value);
   }
 
-  const inputProps = {
-    value: value,
-    onChange: handleChange,
-  };
+  function reset() {
+    setValue(initialValue);
+  }
 
-  return inputProps;
+  return {
+    value,
+    onChange: handleChange,
+    reset,
+    setValue,
+  };
 }
