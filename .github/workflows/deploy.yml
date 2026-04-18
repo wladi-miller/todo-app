@@ -18,7 +18,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - name: Repository auschecken
         uses: actions/checkout@v4
@@ -32,8 +31,14 @@ jobs:
           node-version: 18
           cache: npm
 
+      - name: npm Version fixieren
+        run: npm i -g npm@10.9.0
+
+      - name: npm Version anzeigen
+        run: npm -v
+
       - name: Abhängigkeiten installieren
-        run: npm ci
+        run: npm install
 
       - name: Projekt bauen
         run: npm run build
@@ -49,7 +54,6 @@ jobs:
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-
     steps:
       - name: Auf GitHub Pages deployen
         id: deployment
